@@ -12,7 +12,13 @@ import {
 
 export async function getUSDTDetails(onTransactionUpdate) {
   Emitter.emit("OPEN_LOADER");
-
+  const baseState = {
+    name: "",
+    initialSupply: "",
+    totalSupply: "",
+    symbol: "",
+    balance: "",
+  };
   try {
     if (!hasEthereum()) return false;
     const network = await getCurrentNetwork();
@@ -20,21 +26,16 @@ export async function getUSDTDetails(onTransactionUpdate) {
     if (network && network !== "homestead") {
       toast.error("Please switch to the Ethereum Mainnet Network");
       Emitter.emit("CLOSE_LOADER");
-      return {
-        name: "",
-        initialSupply: "",
-        totalSupply: "",
-        symbol: "",
-        balance: "",
-      };
+      return baseState;
     }
 
+    const address = getActiveWallet();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const address = getActiveWallet();
     const USDTContract = await getUSDTContract(signer);
     const decimals = (await USDTContract.decimals()).toNumber();
     const stopEvent = async () => {
+      Emitter.emit("CLOSE_LOADER");
       await USDTContract.off("Transfer", () => {});
     };
     const updates = [];
