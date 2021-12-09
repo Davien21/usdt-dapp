@@ -63,7 +63,9 @@ function Home() {
             <div className="pb-3 px-4">
               {transactions.map((item, index) => (
                 <div key={index + item.amount} className="row ">
-                  <div className="mb-2 col-4">Sent {item.amount}</div>
+                  <div className="mb-2 col-4">
+                    Sent <span className={`${styles["green-text"]}`}>{formatMoney(item.amount)} USDT</span>
+                  </div>
                   <div className="mb-2 col-4">{formatAddress(item.from)}</div>
                   <div className="mb-2 col-4">{formatAddress(item.to)}</div>
                 </div>

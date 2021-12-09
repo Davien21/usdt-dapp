@@ -59,3 +59,8 @@
 .refresh-btn:hover {
   background-color: #546e7a;
 }
+
+
+.green-text {
+  color: var(--app-secondary-green);
+}
