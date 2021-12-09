@@ -50,10 +50,12 @@ export async function unmountEthListeners() {
 }
 
 export async function getUSDTContract(signer) {
+  const USDTAbi = await fetch(
+    "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7"
+  ).then((r) => r.json());
   try {
     if (!hasEthereum()) return false;
-
-    return new ethers.Contract(USDTContractAddress, USDTAbi, signer);
+    return new ethers.Contract(USDTContractAddress, USDTAbi.result, signer);
   } catch (err) {
     console.log("failed to load contract", err);
   }

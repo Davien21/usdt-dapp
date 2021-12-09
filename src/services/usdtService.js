@@ -1,4 +1,3 @@
-/** @format */
 import { formatEther } from "@ethersproject/units";
 import { ethers } from "ethers";
 import Emitter from "./emitter";
@@ -9,7 +8,6 @@ import {
   getCurrentNetwork,
   getUSDTContract,
 } from "./web3Service";
-import { USDTAbi } from "../contracts/abis";
 
 export async function getUSDTDetails(onTransactionUpdate) {
   Emitter.emit("OPEN_LOADER");
@@ -25,13 +23,13 @@ export async function getUSDTDetails(onTransactionUpdate) {
     }
 
     const address = getActiveWallet();
+    if (!address) {
+      toast.error("Please connect your wallet to use this app");
+    }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const USDTContract = await getUSDTContract(signer);
-    let iface = new ethers.utils.Interface(USDTAbi);
-    console.log(USDTContract);
-    const a = iface.functions;
-    console.log(a);
+
     const decimals = (await USDTContract.decimals()).toNumber();
     const stopEvent = async () => {
       Emitter.emit("CLOSE_LOADER");
@@ -52,16 +50,16 @@ export async function getUSDTDetails(onTransactionUpdate) {
         updates.push({ from, to, amount });
       }
     });
+    Emitter.emit("CLOSE_LOADER");
 
     const totalSupply = (await USDTContract.totalSupply()).toString();
     const name = await USDTContract.name();
     const symbol = await USDTContract.symbol();
     const balance = (await USDTContract.balanceOf(address)).toString();
-    const initialSupply = "100000000000"; //gotten from etherscan
+    const initialSupply = 100000000000; //gotten from etherscan
     return { name, initialSupply, totalSupply, symbol, balance };
   } catch (err) {
     console.log("Something went wrong: ", err);
-    Emitter.emit("CLOSE_LOADER");
     return false;
   }
 }
