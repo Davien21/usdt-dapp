@@ -1,0 +1,61 @@
+.container {
+  background-color: #f5f7f8;
+  min-height: 100vh;
+}
+
+.container main {
+}
+
+.container main > div:first-child {
+  box-shadow: 0 2px 15px -7px rgb(0 0 0 / 7%) !important;
+}
+.info-card span {
+  display: block;
+}
+
+.info-card :nth-child(1) {
+  color: var(--app-grey);
+  text-transform: uppercase;
+}
+
+.info-card :nth-child(2) {
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.table-head span {
+  color: var(--app-grey);
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.container #recent-transactions {
+  border-radius: 5px;
+  box-shadow: 0 2px 15px -7px rgb(0 0 0 / 7%) !important;
+  /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07) !important; */
+  /* box-shadow: var(0 0 #0000, 0 0 #0000), var(0 0 #0000, 0 0 #0000),
+    var(0 0 #0000); */
+}
+
+.contract-name span {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.contract-name :nth-child(2) {
+  color: var(--app-secondary-green);
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+.refresh-btn {
+  background-color: #546e7a;
+}
+
+.refresh-btn:hover {
+  background-color: #546e7a;
+}

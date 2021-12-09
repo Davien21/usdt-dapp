@@ -1,0 +1,95 @@
+.container {
+  position: fixed;
+  width: 100%;
+  top: -140px;
+  perspective: 100px;
+  perspective-origin: left;
+  left: calc(0px);
+  max-width: 100%;
+  clip: auto;
+  transition: top 0.3s ease-in;
+  color: #fff;
+  z-index: var(--toast-z-index);
+  box-shadow: 4px 5px 13px 0px rgba(0, 0, 0, 0.35);
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    /* border-radius: 32px; */
+  }
+}
+
+.container .content {
+  padding: 20px 25px;
+}
+
+.container .bg-img {
+  position: relative;
+  z-index: -1;
+  left: 0;
+}
+
+.container .bg-img img {
+  border-bottom-left-radius: 32px;
+  position: absolute;
+  bottom: 0;
+}
+
+.container.active {
+  top: 0px;
+}
+
+@media screen and (min-width: 640px) {
+  .container {
+    left: calc(50% - 225px);
+    max-width: 450px;
+  }
+
+  .container.active {
+    top: 40px;
+  }
+}
+
+.container.error {
+  background-color: var(--app-secondary-red);
+}
+
+.container.success {
+  background-color: var(--app-green);
+}
+
+.heading {
+  text-transform: capitalize;
+  font-weight: 550;
+  font-size: 18px;
+}
+
+.message {
+  font-weight: 100;
+}
+
+.container .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 0px 20px 20px 0px;
+  content: "";
+  width: 100%;
+  height: 5px;
+  background-color: #fff;
+  transition: width 3s ease-in;
+}
+
+.container.active .progress-bar {
+  width: 0%;
+}
+
+.tick-img {
+  position: absolute;
+  top: -28px;
+  left: 20px;
+}
+
+.tick-img img {
+  width: 45px;
+}
