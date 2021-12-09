@@ -7,7 +7,6 @@ import { formatAddress } from "./../../utils/toolKit";
 
 function Home() {
   const { USDTData, transactions } = useAppContext();
-  console.log(transactions)
 
   return (
     <div className={`${styles["container"]}`}>

@@ -9,6 +9,7 @@ import {
   getCurrentNetwork,
   getUSDTContract,
 } from "./web3Service";
+import { USDTAbi } from "../contracts/abis";
 
 export async function getUSDTDetails(onTransactionUpdate) {
   Emitter.emit("OPEN_LOADER");
@@ -27,6 +28,10 @@ export async function getUSDTDetails(onTransactionUpdate) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const USDTContract = await getUSDTContract(signer);
+    let iface = new ethers.utils.Interface(USDTAbi);
+    console.log(USDTContract);
+    const a = iface.functions;
+    console.log(a);
     const decimals = (await USDTContract.decimals()).toNumber();
     const stopEvent = async () => {
       Emitter.emit("CLOSE_LOADER");
@@ -41,7 +46,7 @@ export async function getUSDTDetails(onTransactionUpdate) {
       }
       value = formatEther(value).toString();
 
-      const amount = parseInt(n.data.toString()) / 10 ** decimals;;
+      const amount = parseInt(n.data.toString()) / 10 ** decimals;
       if (amount > 0) {
         transactionCount++;
         updates.push({ from, to, amount });
@@ -57,5 +62,6 @@ export async function getUSDTDetails(onTransactionUpdate) {
   } catch (err) {
     console.log("Something went wrong: ", err);
     Emitter.emit("CLOSE_LOADER");
+    return false;
   }
 }
