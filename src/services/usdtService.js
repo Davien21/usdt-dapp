@@ -41,7 +41,7 @@ export async function getUSDTDetails(onTransactionUpdate) {
       }
       value = formatEther(value).toString();
 
-      const amount = (parseInt(n.data.toString()) / 10) ^ decimals;
+      const amount = parseInt(n.data.toString()) / 10 ** decimals;;
       if (amount > 0) {
         transactionCount++;
         updates.push({ from, to, amount });

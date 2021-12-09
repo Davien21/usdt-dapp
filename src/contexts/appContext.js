@@ -74,7 +74,7 @@ export function AppProvider({ children }) {
   };
 
   const handleAccountChanged = (address) => {
-    if (!address) return handleWalletDisconnect();
+    if (hasMetaMask && !address) return handleWalletDisconnect();
     resetValues();
   };
 
