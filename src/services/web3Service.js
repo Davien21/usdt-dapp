@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import { USDTAbi } from "../contracts/abis";
 import { USDTContractAddress } from "../utils";
 
 export const connectToMetaMask = async (setError) => {

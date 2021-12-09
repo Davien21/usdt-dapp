@@ -7,7 +7,6 @@ import {
 } from "react";
 import { getUSDTDetails } from "../services/usdtService";
 
-import toast from "./../utils/toastConfig";
 import {
   connectToMetaMask,
   getActiveWallet,
