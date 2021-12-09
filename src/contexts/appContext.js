@@ -32,10 +32,10 @@ export function AppProvider({ children }) {
   const [isConnected, setIsConnected] = useState(false);
   const [hasMetaMask, setHasMetaMask] = useState(true);
 
+  const onTransactionUpdate = (updates) => {
+    setTransactions(updates);
+  };
   const handleWalletConnect = useCallback(() => {
-    const onTransactionUpdate = (updates) => {
-      setTransactions(updates);
-    };
     return (async () => {
       const connectionStatus = await connectToMetaMask();
       if (!connectionStatus) return false;
@@ -56,7 +56,7 @@ export function AppProvider({ children }) {
   const resetValues = useCallback(() => {
     return (async () => {
       const address = getActiveWallet();
-      const usdtData = await getUSDTDetails();
+      const usdtData = await getUSDTDetails(onTransactionUpdate);
       setUSDTData(usdtData);
 
       setUser(address);

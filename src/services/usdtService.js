@@ -12,21 +12,15 @@ import {
 
 export async function getUSDTDetails(onTransactionUpdate) {
   Emitter.emit("OPEN_LOADER");
-  const baseState = {
-    name: "",
-    initialSupply: "",
-    totalSupply: "",
-    symbol: "",
-    balance: "",
-  };
+
   try {
     if (!hasEthereum()) return false;
     const network = await getCurrentNetwork();
-    console.log(network);
+
     if (network && network !== "homestead") {
       toast.error("Please switch to the Ethereum Mainnet Network");
       Emitter.emit("CLOSE_LOADER");
-      return baseState;
+      return false;
     }
 
     const address = getActiveWallet();
@@ -41,7 +35,7 @@ export async function getUSDTDetails(onTransactionUpdate) {
     const updates = [];
     let transactionCount = 0;
     await USDTContract.on("Transfer", async (from, to, value, n) => {
-      if (transactionCount > 9) {
+      if (transactionCount > 7) {
         stopEvent();
         return onTransactionUpdate(updates);
       }
