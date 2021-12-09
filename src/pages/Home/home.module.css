@@ -33,9 +33,16 @@
 .container #recent-transactions {
   border-radius: 5px;
   box-shadow: 0 2px 15px -7px rgb(0 0 0 / 7%) !important;
-  /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07) !important; */
-  /* box-shadow: var(0 0 #0000, 0 0 #0000), var(0 0 #0000, 0 0 #0000),
-    var(0 0 #0000); */
+}
+
+#recent-transactions > * {
+  min-width: 700px;
+}
+
+@media screen and (min-width: 768px) {
+  #recent-transactions > * {
+    min-width: auto;
+  }
 }
 
 .contract-name span {
@@ -59,7 +66,6 @@
 .refresh-btn:hover {
   background-color: #546e7a;
 }
-
 
 .green-text {
   color: var(--app-secondary-green);
