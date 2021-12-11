@@ -18,7 +18,6 @@ export async function getUSDTDetails(onTransactionUpdate) {
 
     if (network && network !== "homestead") {
       toast.error("Please switch to the Ethereum Mainnet Network");
-      Emitter.emit("CLOSE_LOADER");
       return false;
     }
 
@@ -50,13 +49,14 @@ export async function getUSDTDetails(onTransactionUpdate) {
         updates.push({ from, to, amount });
       }
     });
-    Emitter.emit("CLOSE_LOADER");
 
-    const totalSupply = (await USDTContract.totalSupply()).toString();
+    const totalSupply = parseInt((await USDTContract.totalSupply()).toString());
     const name = await USDTContract.name();
     const symbol = await USDTContract.symbol();
-    const balance = (await USDTContract.balanceOf(address)).toString();
+    const balance = (await USDTContract.balanceOf(address)).toNumber();
     const initialSupply = 100000000000; //gotten from etherscan
+
+    Emitter.emit("CLOSE_LOADER");
     return { name, initialSupply, totalSupply, symbol, balance };
   } catch (err) {
     console.log("Something went wrong: ", err);

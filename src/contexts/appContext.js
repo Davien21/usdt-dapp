@@ -44,7 +44,8 @@ export function AppProvider({ children }) {
       setIsConnected(true);
       const usdtData = await getUSDTDetails(onTransactionUpdate);
 
-      if (usdtData) setUSDTData(usdtData);
+      if (usdtData.totalSupply && typeof usdtData.totalSupply === "number")
+        setUSDTData(usdtData);
 
       localStorage.setItem("wallet-connection", true);
 
