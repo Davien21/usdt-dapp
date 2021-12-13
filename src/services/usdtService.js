@@ -34,19 +34,15 @@ export async function getUSDTDetails(onTransactionUpdate) {
       Emitter.emit("CLOSE_LOADER");
       await USDTContract.off("Transfer", () => {});
     };
-    const updates = [];
     let transactionCount = 0;
     await USDTContract.on("Transfer", async (from, to, value, n) => {
-      if (transactionCount > 7) {
-        stopEvent();
-        return onTransactionUpdate(updates);
-      }
+      if (transactionCount > 7) return stopEvent();
       value = formatEther(value).toString();
 
       const amount = parseInt(n.data.toString()) / 10 ** decimals;
       if (amount > 0) {
+        onTransactionUpdate({ from, to, amount });
         transactionCount++;
-        updates.push({ from, to, amount });
       }
     });
 
@@ -54,7 +50,7 @@ export async function getUSDTDetails(onTransactionUpdate) {
     const name = await USDTContract.name();
     const symbol = await USDTContract.symbol();
     const balance = (await USDTContract.balanceOf(address)).toNumber();
-    const initialSupply = 100000000000; //gotten from etherscan
+    const initialSupply = 100000000000; // Gotten from etherscan
 
     Emitter.emit("CLOSE_LOADER");
     return { name, initialSupply, totalSupply, symbol, balance };

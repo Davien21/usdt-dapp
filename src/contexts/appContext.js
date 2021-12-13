@@ -31,8 +31,10 @@ export function AppProvider({ children }) {
   const [isConnected, setIsConnected] = useState(false);
   const [hasMetaMask, setHasMetaMask] = useState(true);
 
-  const onTransactionUpdate = (updates) => {
-    setTransactions(updates);
+  const onTransactionUpdate = (newTransaction) => {
+    setTransactions((currentTransactions) => {
+      return [newTransaction, ...currentTransactions];
+    });
   };
   const handleWalletConnect = useCallback(() => {
     return (async () => {
